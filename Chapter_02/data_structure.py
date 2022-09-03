@@ -67,6 +67,49 @@ ser2 = pd.Series([6, 7, 8, 9, 10], index=list("あかさたな"))
 ser3 = ser + ser2
 print(ser3)
 
+val = [i for i in range(1, 11)]
+
+a = pd.Series(val)
+b = pd.Series(val, index=[0,1,2,3,4,5,6,7,8,9])
+c = pd.Series(val, index=list("abcdefghij"))
+
+print(f"a: {a.index}")
+print(f"b: {b.index}")
+print(f"c: {c.index}")
+
+a = pd.Series(['a', 'b', 'c'])
+b = pd.Series([1, 2, 3])
+c = pd.Series([1.0, 2.0, 3.0])
+d = pd.Series([True, False, True])
+e = pd.Series(['a', 1, 1.0, True])
+
+print(f"a: {a.dtype}")
+print(f"b: {b.dtype}")
+print(f"c: {c.dtype}")
+print(f"d: {d.dtype}")
+print(f"e: {e.dtype}")
+
+a = pd.Series([1, 2, 3], index=[1, 2, 3])
+b = pd.Series([1, 2, 3], index=list("abc"))
+
+print(f"a:\n{a}")
+print(f"b:\n{b}")
+
+print(f"a[1]: {a.loc[1]}")
+print(f"b[1]: {b.loc['a']}")
+
+print(f"a[1]: {a.iloc[0:1]}")
+print(f"b[1]: {b.loc['a':'c']}")
+
+ser = pd.Series([1, 1, 3, 4, 'a'])
+print(ser.size)
+
+a = pd.Series([1, 2, 3])
+b = pd.Series([1, 1, 3])
+
+print(f"a: {a.is_unique}")
+print(f"b: {b.is_unique}")
+
 if __name__ == '__main__':
     sys.exit(0)
 
