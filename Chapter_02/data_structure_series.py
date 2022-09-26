@@ -110,6 +110,57 @@ b = pd.Series([1, 1, 3])
 print(f"a: {a.is_unique}")
 print(f"b: {b.is_unique}")
 
+a = pd.Series([1, 2, 3])
+b = pd.Series(['a', 'b', 'c'])
+c = pd.Series(['a', 'a', 'b'], dtype='category')
+
+print(f'a: {type(a.values), a.values}')
+print(f'b: {type(b.values), b.values}')
+print(f'c: {type(c.values), c.values}')
+
+ser = pd.Series([1, 2, 3, 4, 5], index=list("abcde"))
+print(ser)
+ser['a'] = 10
+ser['b':'d'] = [20, 30, 40]
+ser['e'] = 50
+print(ser)
+ser['あ'] = 4
+print(ser)
+
+# ser2 = pd.Series([5, 6], index=['い', 'う'])
+ser2 = pd.Series([5, 6], index=list('いう'))
+ser_append = ser.append(ser2) # FutureWarning: The series.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+# ser_concat = ser.concat(ser2)
+print(f'ser_append: \n{ser_append}')
+# print(f'ser_concat: {ser_concat}')
+
+ser = ser.append(ser2, ignore_index=True)
+print(ser)
+
+ser = pd.Series([1, 2, 3, 4, 5], index=list("abcde"))
+del ser['a']
+print(ser)
+
+ser.drop(index=['b', 'c'], inplace=True)
+print(ser)
+
+ser = pd.Series([1, 1, 2, 2, 2, 3], index=list("abcdef"))
+ser = ser.drop_duplicates(keep='first')
+print(f'drop duplicate first: \n{ser}')
+
+ser = ser.drop_duplicates(keep=False)
+print(f'drop duplicate False: \n{ser}')
+
+ser = pd.Series([1, np.nan, 3, 4, np.nan], index=list("abcde"))
+print(ser)
+
+ser = ser.isna()
+print(ser)
+print(ser[ser.isna()])
+
+ser.dropna()
+print(ser)
+
 if __name__ == '__main__':
     sys.exit(0)
 
