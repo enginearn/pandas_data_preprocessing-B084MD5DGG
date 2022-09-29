@@ -341,3 +341,61 @@ print(f"idx_period:\n{idx_period}")
 
 df_idx_period = pd.DataFrame(idx_period.value_counts(), index=idx_period)
 print(f"df:\n{df_idx_period}")
+
+# TimedeltaIndex: range of time deltas
+# TimedeltaIndex(freq, start, end)
+idx_timedelta = pd.timedelta_range(start='1 days', end='31 days', freq='D')
+print(f"idx_timedelta:\n{idx_timedelta}")
+
+df_idx_timedelta = pd.DataFrame(idx_timedelta.value_counts(), index=idx_timedelta)
+print(f"df:\n{df_idx_timedelta}")
+
+# CategoricalIndex: range of categories
+# CategoricalIndex(categories, ordered)
+idx_category = pd.CategoricalIndex(['a', 'b', 'c', 'd', 'e'])
+print(f"idx_category:\n{idx_category}")
+
+df_idx_category = pd.DataFrame(idx_category.value_counts(), index=idx_category)
+print(f"df:\n{df_idx_category}")
+
+# MultiIndex: range of multiple indexes
+# MultiIndex.from_product(iterables, names)
+idx_multi = pd.MultiIndex.from_product([['a', 'b', 'c'], [1, 2, 3]], names=['first', 'second'])
+print(f"idx_multi:\n{idx_multi}")
+
+df_idx_multi = pd.DataFrame(idx_multi.value_counts(), index=idx_multi)
+print(f"df:\n{df_idx_multi}")
+
+# get data from web page and save as csv file
+url = 'https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data'
+df = pd.read_csv(url, header=None, skipinitialspace=True, na_values='?')
+df.to_csv('adult.csv', index=False)
+
+print(f"df adult.data:\n{df.iloc[0:5]}")
+
+
+cols = \
+"""
+age: continuous.
+workclass: Private, Self-emp-not-inc, Self-emp-inc, Federal-gov, Local-gov, State-gov, Without-pay, Never-worked.
+fnlwgt: continuous.
+education: Bachelors, Some-college, 11th, HS-grad, Prof-school, Assoc-acdm, Assoc-voc, 9th, 7th-8th, 12th, Masters, 1st-4th, 10th, Doctorate, 5th-6th, Preschool.
+education-num: continuous.
+marital-status: Married-civ-spouse, Divorced, Never-married, Separated, Widowed, Married-spouse-absent, Married-AF-spouse.
+occupation: Tech-support, Craft-repair, Other-service, Sales, Exec-managerial, Prof-specialty, Handlers-cleaners, Machine-op-inspct, Adm-clerical, Farming-fishing, Transport-moving, Priv-house-serv, Protective-serv, Armed-Forces.
+relationship: Wife, Own-child, Husband, Not-in-family, Other-relative, Unmarried.
+race: White, Asian-Pac-Islander, Amer-Indian-Eskimo, Other, Black.
+sex: Female, Male.
+capital-gain: continuous.
+capital-loss: continuous.
+hours-per-week: continuous.
+native-country: countries whose came from; Country of origin.
+income: >50k <=50k.
+"""
+
+col_name = [col.split(':')[0] for col in cols.split('\n') if col != '']
+print(f"col_name:\n{col_name}")
+
+df.columns = col_name
+print(f"df:\n{df.iloc[0:5]}")
+print(f"df:\n{df.iloc[25:28]}")
